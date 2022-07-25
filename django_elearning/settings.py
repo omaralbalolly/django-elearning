@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-w96l2%^-bdh8yrgb6yxmkwb76m+q&5f-c%axig%uj@+9%_1m&j
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.16', 'djangoelearning.herokuapp.com']
-
+CSRF_TRUSTED_ORIGINS = ['https://djangoelearning.herokuapp.com']
 
 # Application definition
 
