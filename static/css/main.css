@@ -1,0 +1,21 @@
+.fa-solid {
+    width: 16px;
+    height: 16px;
+}
+.navbar-toggler,.navbar-toggler:focus{
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+.user_picture{
+    width: 40px;
+    height: 40px;
+}
+.side{
+    position: fixed;
+    z-index: 1000;
+    height: 200%;
+}
+.side_brand{
+    font-size: 30px;
+}

@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-light py-3 mb-3" >
+  <div class="container-fluid px-0">
+      <a href="" class="navbar-brand d-lg-none">Django Elearning</a>
+
+
+
+        {% if request.user.is_authenticated %}
+            <img src="{{ request.user.image.url }}" alt="" class="rounded-circle me-2 d-none d-lg-block user_picture" >
+        {% endif %}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        {% if request.user.is_authenticated %}
+            <img src="{{ request.user.image.url }}" alt="" class="rounded-circle me-2 user_picture">
+        {% else %}
+            <span class="navbar-toggler-icon"></span>
+        {% endif %}
+
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto">
+          {% if request.user.is_authenticated %}
+                {% if request.user.is_superuser %}
+                    <li class="nav-item ">
+                        <a class="nav-link active text-end" aria-current="page" href="/admin">Admin Panel</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item ">
+                    <a class="nav-link active text-end" aria-current="page" href="{% url 'home' %}">Dashboard</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link active text-end" aria-current="page" href="{% url 'courses' %}">Courses</a>
+                </li>
+
+              <li class="nav-item ">
+                    <a class="nav-link active text-end" aria-current="page" href="{% url 'logout' %}">Logout</a>
+                </li>
+
+          {% else %}
+                <li class="nav-item ">
+                    <a class="nav-link active text-end" aria-current="page" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link active text-end" aria-current="page" href="{% url 'login' %}">Login</a>
+                </li>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+

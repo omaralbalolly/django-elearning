@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block body %}
+    <h1>{{ course.subject }}</h1>
+    <h1>Teacher: {{ course.teacher }}</h1>
+    {% for student in course.students.all %}
+        {{ student }}
+    {% endfor %}
+
+{% endblock %}

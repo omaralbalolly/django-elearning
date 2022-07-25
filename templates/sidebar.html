@@ -1,0 +1,47 @@
+<div class="side col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
+        <a href="/" class="d-flex align-items-center py-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <i class="side_brand fa-brands fa-python pe-0"></i>
+            <span class="fs-5 d-none d-sm-inline ps-3">Django Elearning</span>
+        </a>
+        <hr >
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 w-100" id="menu">
+            {% if request.user.is_authenticated %}
+
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="nav-link align-middle p-2 text-white {% if nav == 'home' %}active{% endif %}">
+                    <i class="fa-solid fa-house-chimney" ></i>
+                    <span class="d-none d-sm-inline ms-2">Dashboard</span>
+                </a>
+                </li>
+                <li>
+                    <a href="{% url 'courses' %}" class="nav-link p-2 align-middle text-white {% if nav == 'courses' %}active{% endif %}">
+                    <i class="fa-solid fa-book" ></i> <span class="d-none d-sm-inline ms-2">Courses</span> </a>
+                </li>
+                {% if request.user.is_superuser %}
+                    <li class="nav-item">
+                        <a href="/admin" class="nav-link align-middle p-2 text-white">
+                            <i class="fa-solid fa-gear"></i>
+                            <span class="d-none d-sm-inline ms-2">Admin Panel</span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% else %}
+                <li class="nav-item">
+                <a href="{% url 'login' %}" class="nav-link align-middle p-2 text-white {% if nav == 'login' %}active{% endif %}">
+                        <i class="fa-solid fa-user"></i>
+                        <span class="d-none d-sm-inline ms-2">Login</span>
+                </a>
+                </li>
+                <li>
+                    <a href="{% url 'register' %}" class="nav-link p-2 align-middle text-white {% if nav == 'register' %}active{% endif %}">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span class="d-none d-sm-inline ms-2">Register</span> </a>
+                </li>
+
+            {% endif %}
+        </ul>
+        <hr>
+
+    </div>
+</div>

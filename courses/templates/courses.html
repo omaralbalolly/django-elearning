@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+    {% for course in courses %}
+        <div class="card my-4" style="border-radius: 10px; border-color: transparent; box-shadow: 0 6px 10px rgb(0 0 0 / 8%), 0 0 6px rgb(0 0 0 / 5%);">
+            <div class="card-body p-0">
+                <h5 class="card-title border px-3 py-2 bg-primary text-white" style="border-top-right-radius: 10px;border-top-left-radius: 10px;">{{ course.subject }}</h5>
+                <h5 class="px-3">{{ course }}</h5>
+                <a href="{% url 'course' course.id %}" class="card-link px-3">{{ course }}</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
