@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,17 +20,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w96l2%^-bdh8yrgb6yxmkwb76m+q&5f-c%axig%uj@+9%_1m&j'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.16', 'djangoelearning.herokuapp.com']
+DEBUG = False
+# DEBUG_PROPAGATE_EXCEPTIONS = True
+# ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.16', 'djangoelearning.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://djangoelearning.herokuapp.com']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'cloudinary_storage',
+    'cloudinary',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -139,15 +142,18 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 JAZZMIN_SETTINGS = {
     "show_ui_builder": True,
-    # "site_logo_classes": "img-fluid img-thumbnail",
-    # "site_logo": "logos/logo.png",
-    # "site_icon": 'logos/favicon.ico',
-    # "welcome_sign": "اهلا بك",
 
 }
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET'),
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 import django_heroku
 django_heroku.settings(locals())
