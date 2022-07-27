@@ -19,7 +19,7 @@ class User(AbstractUser):
 
     email = models.EmailField(unique=True)
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=1)
-    image = models.ImageField(null=True, blank=True, upload_to=image_name)
+    image = models.ImageField(null=True, upload_to=image_name)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
