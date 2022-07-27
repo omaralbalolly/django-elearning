@@ -24,6 +24,11 @@ class User(AbstractUser):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+    def user_type_str(self):
+        if self.user_type == 1:
+            return 'Student'
+        return 'Teacher'
+
     class Meta:
         constraints = [
             models.UniqueConstraint(
