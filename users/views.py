@@ -59,3 +59,8 @@ def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect("home")
+
+
+@login_required_message_and_redirect
+def profile_view(request):
+    return render(request, 'profile.html', context={'nav': 'profile'})

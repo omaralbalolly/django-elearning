@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="row pb-5">
+    <div class="col-12 col-md py-3 py-md-0">
+        <div class="card">
+            <div class="card-header">User Details</div>
+            <div class="card-body">
+                <h6>Username: {{ request.user.username }}</h6>
+                <h6>Email: {{ request.user.email }}</h6>
+                <h6>First Name: {{ request.user.first_name }}</h6>
+                <h6>Last Name: {{ request.user.last_name }}</h6>
+                <h6>User Type: {{ request.user.user_type_str }}</h6>
+                <a href="">Edit user details</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md">
+
+        <div class="card">
+            <div class="card-header">Courses</div>
+            <div class="card-body">
+                {% for course in request.user.courses.all %}
+                    <a class="text-decoration-none" href="{% url 'course' course.id %}"><h6>{{ course }}</h6></a>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-4">
+        <div class="card">
+            <div class="card-header">Grades</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for enrollment in request.user.enrollments.all %}
+                            <tr>
+                                <th>{{ enrollment.course.subject }}</th>
+                                <th>{% if enrollment.grade %}{{ enrollment.grade }}{% endif %}</th>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-header"></div>
+            <div class="card-body"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
