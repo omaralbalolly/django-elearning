@@ -4,7 +4,6 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 
 default_message = "Please log in, in order to see the requested page."
-# default_message = "Hello their ! login using username: demo and password: demo"
 
 
 def user_passes_test(test_func, message=default_message):
