@@ -3,6 +3,7 @@ from users.models import User
 import os
 from django.utils.timezone import datetime
 from utils.helping_functions import get_resource_path
+from django.conf import settings
 
 
 class Subject(models.Model):
@@ -38,7 +39,11 @@ class Enrollment(models.Model):
 class Resource(models.Model):
     name = models.CharField(max_length=50, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, related_name='resources')
-    file = models.FileField(upload_to=get_resource_path, null=True)
+    if settings.DEBUG:
+        file = models.FileField(upload_to=get_resource_path, null=True)
+    else:
+        from cloudinary_storage.storage import RawMediaCloudinaryStorage
+        file = models.FileField(upload_to=get_resource_path, null=True, storage=RawMediaCloudinaryStorage())
     add_time = models.DateTimeField(default=datetime.now)
     active = models.BooleanField(default=True, null=True)
 
