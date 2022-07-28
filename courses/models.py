@@ -1,5 +1,8 @@
 from django.db import models
 from users.models import User
+import os
+from django.utils.timezone import datetime
+from utils.helping_functions import get_resource_path
 
 
 class Subject(models.Model):
@@ -11,8 +14,8 @@ class Subject(models.Model):
 
 
 class Course(models.Model):
-    subject = models.ForeignKey(Subject, related_name='subjects', on_delete=models.CASCADE, null=True)
-    teacher = models.ForeignKey(User, related_name='teachers', on_delete=models.SET_NULL, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True)
+    teacher = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     students = models.ManyToManyField(User, related_name="courses", through="Enrollment")
 
     def __str__(self):
@@ -30,3 +33,17 @@ class Enrollment(models.Model):
 
     class Meta:
         unique_together = ('student', 'course')
+
+
+class Resource(models.Model):
+    name = models.CharField(max_length=50, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, related_name='resources')
+    file = models.FileField(upload_to=get_resource_path, null=True)
+    add_time = models.DateTimeField(default=datetime.now)
+    active = models.BooleanField(default=True, null=True)
+
+    def filename(self):
+        return os.path.basename(self.file.name)
+
+    def __str__(self):
+        return self.name

@@ -1,9 +1,69 @@
 {% extends 'base.html' %}
 {% block body %}
-    <h1>{{ course.subject }}</h1>
-    <h1>Teacher: {{ course.teacher }}</h1>
-    {% for student in course.students.all %}
-        {{ student }}
-    {% endfor %}
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <h3>{{ course.subject }}</h3>
+                <h3>Teacher: {{ course.teacher }}</h3>
+            </div>
+        </div>
+        <div class="card-body">
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3>Assignments and Quizzes</h3>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Open Date</th>
+                  <th scope="col">Close Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><i class="fa-solid fa-file-pen"></i><a class="text-decoration-none px-2" href="#">Quiz 1</a></th>
+                  <td>July 28, 2022</td>
+                  <td>July 31, 2022</td>
+                </tr>
+                <tr>
+                  <th scope="row"><i class="fa-solid fa-file-pen"></i><a class="text-decoration-none px-2" href="#">Quiz 2</a></th>
+                  <td>July 31, 2022</td>
+                  <td>August 10, 2022</td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="card mt-5">
+        <div class="card-header">
+            <h3>Resources:</h3>
+        </div>
+        <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Resource</th>
+                  <th scope="col">Add date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for resource in resources %}
+                    <tr>
+                        <th scope="row"><i class="fa-solid fa-file-arrow-down" style="font-size: 20px"></i><a class="text-decoration-none px-2" href="{{ resource.file.url }}">{{ resource }}</a></th>
+                        <td><h6>{{ resource.add_time.date }}</h6></td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
 
 {% endblock %}

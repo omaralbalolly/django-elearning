@@ -31,7 +31,7 @@ def login_view(request):
         messages.info(request, 'You are already logged in')
         return redirect('home')
     login_form = AuthenticationForm(
-        initial={'username': 'demo'})  # Pre filled username for demo
+        initial={'username': 'omar'})  # Pre filled username for demo
     messages.info(request, 'Hello their ! login using username: omar and password: omar')
     return render(request, 'login.html', context={'login_form': login_form, 'nav': 'login'})
 

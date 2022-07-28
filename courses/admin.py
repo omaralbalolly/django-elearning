@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Course, Enrollment
+from .models import Subject, Course, Enrollment, Resource
 from users.models import User
 
 
@@ -31,3 +31,8 @@ class EnrollmentAdmin(admin.ModelAdmin):
         context['adminform'].form.fields['student'].queryset = User.objects.filter(
             user_type=1)  # Filter the users to get students only
         return super(EnrollmentAdmin, self).render_change_form(request, context, *args, **kwargs)
+
+
+@admin.register(Resource)
+class ResourceAdmin(admin.ModelAdmin):
+    list_display = ('name','filename', 'course')
