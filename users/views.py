@@ -38,12 +38,13 @@ def login_view(request):
 
 def register_view(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, 'Registration successful.')
             return redirect('home')
+        print(form.errors)
         messages.error(request, 'Unsuccessful registration')
     if request.user.is_authenticated:
         messages.info(request, 'You are already logged in')
@@ -66,7 +67,7 @@ def profile_view(request):
 
 @login_required_message_and_redirect
 def profile_edit_view(request):
-    form = ProfileForm(instance=request.user, data=request.POST or None)
+    form = ProfileForm(instance=request.user, data=request.POST or None, files=request.FILES or None)
     if form.is_valid():
         form.save()
         messages.success(request, 'Your details has been saved')
