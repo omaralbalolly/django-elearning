@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     'users',
     'courses',
+    'assignments',
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -149,6 +150,6 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
 CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 import django_heroku
 django_heroku.settings(locals())

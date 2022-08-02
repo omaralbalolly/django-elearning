@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block body %}
-
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between">
@@ -14,7 +13,7 @@
     </div>
     <div class="card">
         <div class="card-header">
-            <h3>Assignments and Quizzes</h3>
+            <h3>Assignments</h3>
         </div>
         <div class="card-body">
 
@@ -22,21 +21,19 @@
               <thead>
                 <tr>
                   <th scope="col">Name</th>
-                  <th scope="col">Open Date</th>
-                  <th scope="col">Close Date</th>
+                  <th scope="col">Open At</th>
+                  <th scope="col">Close At</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row"><i class="fa-solid fa-file-pen"></i><a class="text-decoration-none px-2" href="#">Quiz 1</a></th>
-                  <td>July 28, 2022</td>
-                  <td>July 31, 2022</td>
-                </tr>
-                <tr>
-                  <th scope="row"><i class="fa-solid fa-file-pen"></i><a class="text-decoration-none px-2" href="#">Quiz 2</a></th>
-                  <td>July 31, 2022</td>
-                  <td>August 10, 2022</td>
-                </tr>
+                {% for assignment in assignments %}
+                    <tr>
+                      <th scope="row"><i class="fa-solid fa-file-pen"></i><a class="text-decoration-none px-2" href="{% url 'assignment' assignment.id %}">{{ assignment.name }}</a></th>
+                      <td>{{ assignment.open_time }}</td>
+                      <td>{{ assignment.close_time }}</td>
+                    </tr>
+                {% endfor %}
+
               </tbody>
             </table>
 

@@ -39,11 +39,7 @@ class Enrollment(models.Model):
 class Resource(models.Model):
     name = models.CharField(max_length=50, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, related_name='resources')
-    if settings.DEBUG:
-        file = models.FileField(upload_to=get_resource_path, null=True)
-    else:
-        from cloudinary_storage.storage import RawMediaCloudinaryStorage
-        file = models.FileField(upload_to=get_resource_path, null=True, storage=RawMediaCloudinaryStorage())
+    file = models.FileField(upload_to=get_resource_path, null=True)
     add_time = models.DateTimeField(default=datetime.now)
     active = models.BooleanField(default=True, null=True)
 

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load assignments_tags %}
+{% load crispy_forms_filters %}
+{% block body %}
+    <div class="card">
+        <div class="card-header"><h5>Assignment: {{ assignment.name }}</h5></div>
+
+        <div class="card-body">
+            <div class="ps-2">
+                {{ assignment.description | linebreaks }}
+            </div>
+            <table class="table">
+            <tbody>
+                {% if assignment.file %}
+                    <tr>
+                        <th>Assignment file:</th>
+                        <td>
+                            <i class="fa-solid fa-file-arrow-down" style="font-size: 20px"></i><a class="text-decoration-none" href="{{ assignment.file.url }}"> {{ assignment.file | filename }}</a>
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>Open At: </th>
+                    <td>{{ assignment.open_time }}</td>
+                </tr>
+                <tr>
+                    <th>Close At: </th>
+                    <td>{{ assignment.close_time }}</td>
+                </tr>
+
+                {% if submission.grade %}
+                    <tr>
+                        <th class="">Your Submission: </th>
+                        <th class="text-success"><a href="{{ submission.file.url }}">{{ submission.file | filename }}</a></th>
+                    </tr>
+                    <tr>
+                        <th>Submitted At: </th>
+                        <td class="">{{ submission.time }}</td>
+                    </tr>
+                    <tr>
+                        <th class="">Grade: </th>
+                        <th class="text-success">{{ submission.grade }}</th>
+                    </tr>
+
+                {% else %}
+                    {% if assignment.is_open %}
+                        <tr>
+                            <th>Remaining Time:</th>
+                            <td>{{ assignment.remaining_time }}</td>
+                        </tr>
+                        <form enctype="multipart/form-data" action="" method="post">
+                        {% csrf_token %}
+                        <tr>
+                            <th>Your Submission: </th>
+                            <td>{{ submit_form | crispy }}</td>
+                        </tr>
+                        {% if submission %}
+                            <tr>
+                                <th>Submitted At: </th>
+                                <td class="">{{ submission.time }}</td>
+                            </tr>
+                        {% endif %}
+
+                        <tr>
+                            <td style="border: none">
+                                <button type="submit" class="btn btn-success" disabled>{% if submission %}Update Submission{% else %}Submit{% endif %}</button>
+                            </td>
+                        </tr>
+
+                    </form>
+                    {% else %}
+                        {% if submission %}
+                            <tr>
+                                <th class="">Your Submission: </th>
+                                <th class="text-success"><a href="{{ submission.file.url }}">{{ submission.file | filename }}</a></th>
+                            </tr>
+                            <tr>
+                                <th>Submitted At: </th>
+                                <td class="">{{ submission.time }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th class="">Your Submission: </th>
+                                <th class="bg-danger text-white">The submission period has ended</th>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+
+                {% endif %}
+
+            </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/assignments.js' %}"></script>
+{% endblock %}
